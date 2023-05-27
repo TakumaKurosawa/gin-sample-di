@@ -1,7 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
+
+	"github.com/TakumaKurosawa/gin-sample/server/restserver"
+)
 
 func main() {
-	fmt.Println("hello, world")
+	g := gin.Default()
+	e := echo.New()
+	srv := restserver.NewHttpServer(g, e)
+	srv.NewRouter()
+	if err := srv.Run(); err != nil {
+		log.Fatal(err)
+	}
 }
